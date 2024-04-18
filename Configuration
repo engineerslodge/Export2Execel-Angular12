@@ -1,101 +1,14 @@
-Exporting Data to Excel File in Angular Application
+## Exporting Data to Excel File in Angular Application
 
 In web applications, there's often a need to export data into various formats like PDF, Excel, or JSON to provide users with invoices, reports, or analytical data. In a previous article, I demonstrated how to generate PDF files in Angular applications. Now, let's explore how to export data in an Angular application specifically to Excel.
 
-Getting Started:
+### Getting Started:
 
 Assuming you have Node.js and Angular CLI installed, let's create a basic demo application.
 
-Step 1: Create an Angular App:
+#### Step 1: Create an Angular App:
 
 Use Angular CLI to create a new Angular application:
 
-bash
-Copy code
+```bash
 ng new angular-app
-Navigate to the project folder:
-
-bash
-Copy code
-cd ./angular-app
-Step 2: Install Required Packages:
-
-We'll need the xlsx npm module for this task:
-
-bash
-Copy code
-npm i xlsx --save
-Step 3: Create a Dummy List of Users:
-
-For demonstration purposes, let's create a dummy list of users in app.component.ts.
-
-typescript
-Copy code
-userList = [
-  { "id": 1, "name": "Leanne Graham", "username": "Bret", "email": "Sincere@april.biz" },
-  { "id": 2, "name": "Ervin Howell", "username": "Antonette", "email": "Shanna@melissa.tv" },
-  // More users...
-];
-Step 4: Update Template with Export Button:
-
-In app.component.html, add a button to trigger the export function and display the user data in a table.
-
-html
-Copy code
-<div style="margin: auto; width: 50%;">
-  <button (click)="exportexcel()">Export to Excel</button>
-
-  <table id="excel-table">
-    <!-- Table headers -->
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Username</th>
-      <th>Email</th>
-    </tr>
-    <!-- Table data -->
-    <tr *ngFor="let item of userList">
-      <td>{{item.id}}</td>
-      <td>{{item.name}}</td>
-      <td>{{item.username}}</td>
-      <td>{{item.email}}</td>
-    </tr>
-  </table>
-</div>
-Step 5: Implement Excel Export Function:
-
-In app.component.ts, define the exportexcel() method to export the table data to an Excel file.
-
-typescript
-Copy code
-import { Component } from '@angular/core';
-import * as XLSX from 'xlsx';
-
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
-export class AppComponent {
-  title = 'angular-app';
-  fileName = 'ExcelSheet.xlsx';
-  userList = [ /* Dummy user data */ ];
-
-  exportexcel(): void {
-    let element = document.getElementById('excel-table');
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    XLSX.writeFile(wb, this.fileName);
-  }
-}
-Step 6: Run the Application:
-
-Finally, run the application using the command:
-
-bash
-Copy code
-npm start
-Conclusion:
-
-In this article, we learned how to export data to an Excel file in an Angular application. This feature enables users to download data for further analysis or reporting purposes. I hope this guide has been helpful in expanding your knowledge of Angular development. For more tutorials and projects, visit the Angular Sample Projects repository.
